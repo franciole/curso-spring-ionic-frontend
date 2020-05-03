@@ -64,7 +64,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             enableBackdropDismiss: false,
             buttons: [
                 {
-                    text: 'OK'
+                    text: 'Ok'
                 }
             ]
         });
