@@ -34,13 +34,12 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.auth.refreshToken()
-    .subscribe(response => {
-      this.auth.successfulLogin(response.headers.get('Authorization'));
-      this.navCtrl.setRoot('CategoriasPage');
-    },
-      error => { });
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+        error => { });
   }
-
 
   login() {
     this.auth.authenticate(this.creds)
@@ -49,6 +48,10 @@ export class HomePage {
         this.navCtrl.setRoot('CategoriasPage');
       },
         error => { });
+  }
+
+  signup() {
+    this.navCtrl.push('SignupPage');
   }
 
 }
