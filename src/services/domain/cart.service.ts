@@ -2,22 +2,20 @@ import { Injectable } from '@angular/core';
 import { StorageService } from '../storage.service';
 import { Cart } from '../../models/cart';
 import { ProdutoDTO } from '../../models/produto.dto';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class CartService {
 
-    constructor(
-        public storage: StorageService
-    ) { }
+    constructor(public storage: StorageService) {
+    }
 
-    createOrClearCart(): Cart {
-        let cart: Cart = { items: [] };
+    createOrClearCart() : Cart {
+        let cart: Cart = {items: []};
         this.storage.setCart(cart);
         return cart;
     }
 
-    getCart(): Cart {
+    getCart() : Cart {
         let cart: Cart = this.storage.getCart();
         if (cart == null) {
             cart = this.createOrClearCart();
@@ -25,17 +23,17 @@ export class CartService {
         return cart;
     }
 
-    addProduto(produto: ProdutoDTO): Cart {
+    addProduto(produto: ProdutoDTO) : Cart {
         let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id);
         if (position == -1) {
-            cart.items.push({ quantidade: 1, produto: produto });
+            cart.items.push({quantidade: 1, produto: produto});
         }
         this.storage.setCart(cart);
         return cart;
     }
 
-    removeProduto(produto: ProdutoDTO): Cart {
+    removeProduto(produto: ProdutoDTO) : Cart {
         let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id);
         if (position != -1) {
@@ -45,7 +43,7 @@ export class CartService {
         return cart;
     }
 
-    increaseQuantity(produto: ProdutoDTO): Cart {
+    increaseQuantity(produto: ProdutoDTO) : Cart {
         let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id);
         if (position != -1) {
@@ -55,7 +53,7 @@ export class CartService {
         return cart;
     }
 
-    decreaseQuantity(produto: ProdutoDTO): Cart {
+    decreaseQuantity(produto: ProdutoDTO) : Cart {
         let cart = this.getCart();
         let position = cart.items.findIndex(x => x.produto.id == produto.id);
         if (position != -1) {
@@ -68,13 +66,12 @@ export class CartService {
         return cart;
     }
 
-    total(): number {
+    total() : number {
         let cart = this.getCart();
         let sum = 0;
-        for (var i = 0; i < cart.items.length; i++) {
+        for (var i=0; i<cart.items.length; i++) {
             sum += cart.items[i].produto.preco * cart.items[i].quantidade;
         }
         return sum;
     }
-
 }

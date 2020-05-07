@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CidadeService } from '../../services/domain/cidade.service';
 import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @IonicPage()
 @Component({
@@ -14,36 +15,36 @@ import { ClienteService } from '../../services/domain/cliente.service';
 })
 export class SignupPage {
 
-  formGroup: FormGroup
+  formGroup: FormGroup;
   estados: EstadoDTO[];
   cidades: CidadeDTO[];
 
   constructor(
-    public navCtrl: NavController,
+    public navCtrl: NavController, 
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
     public estadoService: EstadoService,
     public clienteService: ClienteService,
-    public alertCtrl: AlertController
-  ) {
+    public alertCtrl: AlertController) {
+
     this.formGroup = this.formBuilder.group({
-      nome: ['Franciole', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-      email: ['franciole@gmail.com', [Validators.required, Validators.email]],
-      tipo: ['1', [Validators.required]],
-      cpfOuCnpj: ['12345678901', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-      senha: ['123', [Validators.required]],
-      logradouro: ['Logradouro', [Validators.required]],
-      numero: ['123', [Validators.required]],
-      complemento: ['complemento', []],
-      bairro: ['bairro', []],
-      cep: ['12345678', [Validators.required]],
-      telefone1: ['11 911111111', [Validators.required]],
-      telefone2: ['11 922222222', []],
-      telefone3: ['11 933333333', []],
-      estadoId: [null, [Validators.required]],
-      cidadeId: [null, [Validators.required]]
-    })
+      nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      email: ['joaquim@gmail.com', [Validators.required, Validators.email]],
+      tipo : ['1', [Validators.required]],
+      cpfOuCnpj : ['06134596280', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+      senha : ['123', [Validators.required]],
+      logradouro : ['Rua Via', [Validators.required]],
+      numero : ['25', [Validators.required]],
+      complemento : ['Apto 3', []],
+      bairro : ['Copacabana', []],
+      cep : ['10828333', [Validators.required]],
+      telefone1 : ['977261827', [Validators.required]],
+      telefone2 : ['', []],
+      telefone3 : ['', []],
+      estadoId : [null, [Validators.required]],
+      cidadeId : [null, [Validators.required]]      
+    });
   }
 
   ionViewDidLoad() {
@@ -53,9 +54,9 @@ export class SignupPage {
         this.formGroup.controls.estadoId.setValue(this.estados[0].id);
         this.updateCidades();
       },
-        error => { }
-      );
+      error => {});
   }
+
   updateCidades() {
     let estado_id = this.formGroup.value.estadoId;
     this.cidadeService.findAll(estado_id)
@@ -63,8 +64,7 @@ export class SignupPage {
         this.cidades = response;
         this.formGroup.controls.cidadeId.setValue(null);
       },
-        error => { }
-      );
+      error => {});
   }
 
   signupUser() {
@@ -72,8 +72,7 @@ export class SignupPage {
       .subscribe(response => {
         this.showInsertOk();
       },
-        error => { }
-      );
+      error => {});
   }
 
   showInsertOk() {
@@ -83,7 +82,7 @@ export class SignupPage {
       enableBackdropDismiss: false,
       buttons: [
         {
-          text: 'OK',
+          text: 'Ok',
           handler: () => {
             this.navCtrl.pop();
           }

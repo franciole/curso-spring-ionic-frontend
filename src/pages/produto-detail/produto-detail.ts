@@ -15,11 +15,10 @@ export class ProdutoDetailPage {
   item: ProdutoDTO;
 
   constructor(
-    public navCtrl: NavController,
+    public navCtrl: NavController, 
     public navParams: NavParams,
     public produtoService: ProdutoService,
-    public cartService: CartService
-  ) {
+    public cartService: CartService) {
   }
 
   ionViewDidLoad() {
@@ -29,8 +28,7 @@ export class ProdutoDetailPage {
         this.item = response;
         this.getImageUrlIfExists();
       },
-        error => { }
-      );
+      error => {});
   }
 
   getImageUrlIfExists() {
@@ -38,13 +36,11 @@ export class ProdutoDetailPage {
       .subscribe(response => {
         this.item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${this.item.id}.jpg`;
       },
-        error => { }
-      );
+      error => {});
   }
 
   addToCart(produto: ProdutoDTO) {
     this.cartService.addProduto(produto);
     this.navCtrl.setRoot('CartPage');
   }
-
 }
