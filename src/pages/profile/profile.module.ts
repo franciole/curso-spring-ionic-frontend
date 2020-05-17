@@ -11,7 +11,7 @@ import { Camera } from '@ionic-native/camera';
     IonicPageModule.forChild(ProfilePage),
   ],
   providers: [
-    Camera
+    Camera    
   ],
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }
